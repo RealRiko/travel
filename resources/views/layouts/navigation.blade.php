@@ -6,7 +6,6 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
@@ -15,11 +14,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-
-                    <!-- Add your "Destinations" link here -->
                     <x-nav-link :href="route('destinations.index')" :active="request()->routeIs('destinations.index')">
                         {{ __('Destinations') }}
                     </x-nav-link>
+                    @auth
+                        <x-nav-link :href="route('destinations.create')" :active="request()->routeIs('destinations.create')">
+                            {{ __('Create Destination') }}
+                        </x-nav-link>
+                    @endauth
                 </div>
             </div>
 
@@ -77,6 +79,11 @@
             <x-responsive-nav-link :href="route('destinations.index')" :active="request()->routeIs('destinations.index')">
                 {{ __('Destinations') }}
             </x-responsive-nav-link>
+            @auth
+                <x-responsive-nav-link :href="route('destinations.create')" :active="request()->routeIs('destinations.create')">
+                    {{ __('Create Destination') }}
+                </x-responsive-nav-link>
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->

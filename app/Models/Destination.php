@@ -9,9 +9,38 @@ class Destination extends Model
 {
     use HasFactory;
 
-    // Optionally, you can define the table name if it's not 'destinations'
-    // protected $table = 'destinations';
+    protected $fillable = [
+        'name',
+        'description',
+        'country',
+        'city',
+        'activity_type',
+        'image',
+        'youtube_video',
+    ];
 
-    // Define which columns are mass assignable
-    protected $fillable = ['name', 'description', 'country', 'city', 'activity_type', 'image'];
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
+    public function getLikesCountAttribute()
+    {
+        return $this->likes()->where('value', 1)->count();
+    }
+
+    public function getDislikesCountAttribute()
+    {
+        return $this->likes()->where('value', -1)->count();
+    }
+
+    public function userHasLiked($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->where('value', 1)->exists();
+    }
+
+    public function userHasDisliked($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->where('value', -1)->exists();
+    }
 }

@@ -8,152 +8,145 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <style>
-        body {
-            font-family: 'Figtree', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(to bottom, #f0f4f8, #dfe7ed);
-        }
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: #f4f4f4;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden; /* No scrolling */
+    }
 
-        .slideshow-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
+    .slideshow-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh; /* Full viewport height */
+        overflow: hidden;
+        z-index: -1;
+    }
 
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transform: scale(1.05); /* Subtle zoom-in effect */
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-        }
+    .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1.5s ease-in-out;
+    }
 
-        .active {
-            opacity: 1;
-            transform: scale(1); /* Slight zoom-out to original size */
-        }
+    .active {
+        opacity: 1;
+    }
 
-        header {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 2;
-        }
+    header {
+        text-align: center;
+        padding: 20px;
+        background-color: rgba(15, 32, 39, 0.8);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        width: 100%;
+    }
 
-        h1 {
-            color: #2c3e50;
-            font-size: 3.5rem; /* Smaller font size */
-            margin: 0;
-            text-align: center;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-        }
+    header h1 {
+        margin: 0;
+        font-size: 2.8rem;
+        color: #f7b733;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
 
-        .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
+    .text-background {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        max-width: 600px;
+        margin: 0 auto;
+        backdrop-filter: blur(8px);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
 
-        .text-background {
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 25px; /* Smaller padding */
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 700px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
+    .text-background p {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        color: #f4f4f4;
+        margin-bottom: 20px;
+    }
 
-        p {
-            font-size: 1.4rem; /* Smaller font size */
-            line-height: 1.6;
-            margin: 20px 0;
-            color: #34495e;
-            font-weight: 500;
-        }
+    .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: #f7b733;
+        color: #0f2027;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        footer {
-            background-color: rgba(255, 255, 255, 0.9); /* Add background to footer */
-            text-align: center;
-            padding: 15px 0;
-            border-top: 1px solid #e5e7eb;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2); /* Shadow effect for the footer */
-        }
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(247, 183, 51, 0.6);
+    }
 
-        .footer-text {
-            color: #4b5563;
-            font-size: 1.1rem; /* Slightly smaller font size */
-            font-weight: 500;
-        }
+    footer {
+        text-align: center;
+        padding: 8px 15px;
+        background-color: rgba(15, 32, 39, 0.9);
+        color: #e4e4e4;
+        font-size: 0.8rem;
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.5);
+        position: absolute;
+        bottom: 10px; /* Adjusted the position to be slightly above the very bottom */
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto; /* Keeps it at a smaller width */
+        max-width: 300px; /* Limits the width to give a more square appearance */
+        border-radius: 10px;
+    }
+</style>
 
-        .btn {
-            display: inline-block;
-            padding: 10px 20px; /* Smaller button size */
-            background-color: #4f46e5;
-            color: white;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #4338ca;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-    </style>
 </head>
 <body>
-    <div class="slideshow-container">
-        <div class="slide active" style="background-image: url('/images/New_york_times_square-terabass.jpg.webp');"></div>
-        <div class="slide" style="background-image: url('/images/image.png');"></div>
-        <div class="slide" style="background-image: url('/images/shutterstock-490898872.webp');"></div>
-    </div>
+<div class="slideshow-container">
+    <div class="slide active" style="background-image: url('/images/destinations/dubai.jpg');"></div>
+    <div class="slide" style="background-image: url('/images/destinations/rome.jpg');"></div>
+    <div class="slide" style="background-image: url('/images/destinations/newyork.jpg');"></div>
+    <div class="slide" style="background-image: url('/images/destinations/tokyo.jpg');"></div>
+    <div class="slide" style="background-image: url('/images/destinations/sydney.jpg');"></div>
+    <div class="slide" style="background-image: url('/images/destinations/bangkok.jpg');"></div>
+    <div class="slide" style="background-image: url('/images/destinations/riga.jpg');"></div>
+</div>
+
 
     <header>
-        <h1>Welcome to Aviosales</h1>
+        <h1>Aviosales</h1>
     </header>
 
-    <div class="container">
-        <div class="text-background">
-            <p>Your adventure starts here!</p>
-            <a href="{{ route('destinations.index') }}" class="btn">Explore Destinations</a>
-        </div>
+    <div class="text-background">
+        <p>Your next journey begins here. Discover incredible destinations and make unforgettable memories.</p>
+        <a href="{{ route('destinations.index') }}" class="btn">Explore Destinations</a>
     </div>
 
     <footer>
-        <p class="footer-text">© {{ date('Y') }} Your Company. All rights reserved.</p>
+        <p>© {{ date('Y') }} Aviosales. Designed for adventure.</p>
     </footer>
 
     <script>

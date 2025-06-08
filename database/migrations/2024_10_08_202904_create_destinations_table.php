@@ -12,7 +12,6 @@ class CreateDestinationsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('country');
-            $table->string('city');
             $table->string('activity_type'); // Adventure, Relaxation, etc.
             $table->string('image'); // For destination photos
             $table->timestamps();
