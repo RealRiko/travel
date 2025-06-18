@@ -6,19 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
-    {
-        Schema::create('likes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->morphs('likeable'); // Polymorphic columns: likeable_id, likeable_type
-            $table->integer('value')->default(0); // 1 for like, -1 for dislike
-            $table->timestamps();
+// database/migrations/xxxx_xx_xx_create_likes_table.php
 
-            // Ensure a user can only like/dislike a destination once
-            $table->unique(['user_id', 'likeable_id', 'likeable_type']);
-        });
-    }
+public function up()
+{
+    Schema::create('likes', function (Blueprint $table) {
+        $table->id();
+        $table->unsignedBigInteger('user_id');
+        $table->unsignedBigInteger('likeable_id');
+        $table->string('likeable_type');
+        $table->integer('value'); // 1 = like, -1 = dislike
+        $table->timestamps();
+
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    });
+}
+
 
     public function down()
     {

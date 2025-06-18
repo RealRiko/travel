@@ -1,61 +1,26 @@
-
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-lg sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    <div class="p-6 space-y-6 bg-white dark:bg-gray-900 rounded-lg shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="{{ route('destinations.index') }}" class="block p-6 bg-blue-100 rounded-lg shadow hover:bg-blue-200 transition">
+                <h3 class="text-xl font-bold">All Destinations</h3>
+                <p class="mt-2 text-gray-700">Browse all travel destinations</p>
+            </a>
+
+            <a href="{{ route('destinations.liked') }}" class="block p-6 bg-green-100 rounded-lg shadow hover:bg-green-200 transition">
+                <h3 class="text-xl font-bold">Liked</h3>
+                <p class="mt-2 text-gray-700">See destinations you liked</p>
+            </a>
+
+            <a href="{{ route('destinations.disliked') }}" class="block p-6 bg-red-100 rounded-lg shadow hover:bg-red-200 transition">
+                <h3 class="text-xl font-bold">Disliked</h3>
+                <p class="mt-2 text-gray-700">Review your dislikes</p>
+            </a>
         </div>
     </div>
-
-    <!-- Add Custom Styles Here -->
-    @push('styles')
-        <style>
-            /* Custom styles for the Dashboard */
-            .bg-white {
-                background-color: #f9f9f9 !important; /* Light background */
-            }
-
-            .text-gray-900 {
-                color: #333; /* Darker text for contrast */
-            }
-
-            .py-12 {
-                padding-top: 40px;
-                padding-bottom: 40px;
-            }
-
-            .max-w-7xl {
-                max-width: 100%; /* Full-width for responsiveness */
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-
-            .p-6 {
-                padding: 20px;
-                background: linear-gradient(135deg, #3b8d99, #6fbcbb); /* Soft gradient background */
-                border-radius: 8px;
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            }
-
-            h2 {
-                font-size: 2rem;
-                color: #2b3a3a;
-            }
-
-            /* Optional: Add a hover effect to the main container */
-            .bg-white:hover {
-                background-color: #e5e5e5;
-                transition: background-color 0.3s ease-in-out;
-            }
-        </style>
-    @endpush
 </x-app-layout>

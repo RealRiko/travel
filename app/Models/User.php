@@ -21,8 +21,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
-    }
+public function likes()
+{
+    return $this->hasMany(Like::class);
+}
+public function destinations()     // add this if it isn’t there
+{
+    return $this->hasMany(Destination::class);
+}
+
 }
